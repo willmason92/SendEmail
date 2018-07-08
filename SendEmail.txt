@@ -1,0 +1,37 @@
+if (isset($_POST['submit'])) {
+	$name 		= @trim(stripslashes($_POST['name'])); 
+	$email 		= @trim(stripslashes($_POST['email'])); 
+	$tel 		= @trim(stripslashes($_POST['tel'])); 
+	$bike 		= @trim(stripslashes($_POST['bike'])); 
+	$date 		= @trim(stripslashes($_POST['date'])); 
+	$days 		= @trim(stripslashes($_POST['days'])); 
+	$message 	= @trim(stripslashes($_POST['message'])); 
+
+	$to  = 'your@email.com'; 
+	$subject = "Booking Enquiry - System Message";
+	$body = "Hello,<br><br>";
+	$body.= "This is a message from your system!<br><br>";
+	$body.= "Name: "	.$name."<br>";
+	$body.= "Email: "	.$email."<br>";
+	$body.= "Tel: "	.$tel."<br>";
+	$body.= "Bike: "	.$bike."<br>";
+	$body.= "Date: "	.$date."<br>";
+	$body.= "Days: "	.$days."<br>";
+	$body.= "Message: ".$message."<br><br>";
+	$body.= "Thanks,<br><br>";
+	$body.= "System Message";
+
+	$headers  = "From: {$name} < {$email} >\n";
+	$headers .= "X-Sender: {$name} < {$email} >\n";
+	$headers .= 'X-Mailer: PHP/' . phpversion();
+	$headers .= "X-Priority: 1\n"; // Urgent message!
+	$headers .= "Return-Path: info@superstarrentals.com\n"; // Return path for errors
+	$headers .= "MIME-Version: 1.0\r\n";
+	$headers .= "Content-Type: text/html; charset=iso-8859-1\n";
+
+	if (mail($to, $subject, $body, $headers)) {
+		$success = "The message has been sent unsuccessfully";
+	} else {
+		$failed = "The message has been sent successfully";
+	}
+}
